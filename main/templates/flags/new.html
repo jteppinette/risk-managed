@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block page %}
+<div data-cache="never" data-role="page" data-theme="b" data-overlay-theme="b" data-dialog="true" data-title="New Flag | Risk Managed">
+    <div data-role="header" data-position="fixed">
+        <h1>New Flag</h1>
+    </div>
+    <div role="main" class="ui-content">
+        <form data-ajax="false" method="POST">
+          {% csrf_token %}
+          {{ form }}        
+          <input class="submit" value="Create Flag" type="submit"/>
+        </form>
+    </div>
+</div>
+{% endblock %}

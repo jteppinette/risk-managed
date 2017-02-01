@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block page %}
+<div data-url="{% url 'guests_list' %}" class="page" data-role="page" data-theme="b" data-title="Guests | Risk Managed">
+
+  {% include "header.html" %}
+
+  <div role="main" class="ui-content">
+    <h1>Guests</h1>
+    <div class="tight">
+
+      {% if object_list %}
+      <ul data-role="listview" data-inset="true">
+        <li data-role="list-divider" data-theme="b">Guests<span class="ui-li-count">{{object_list|length}}</span></li>
+        {% for guestimage in object_list %}
+        <li>
+          <a href="{% url 'guests_detail' guestimage.guest.pk %}" data-transition="flow">
+            <img src="{{guestimage.image_thumb.url}}" />
+            <h2>{{guestimage.guest.first_name}} {{guestimage.guest.last_name}}</h2>
+            <p>{{guestimage.guest.gender}} born on {{guestimage.guest.date_of_birth}}</p>
+          </a>
+        </li>
+        {% endfor%}
+      </ul>
+      {% endif %}
+
+    </div>
+  </div>
+
+  {% include "footer.html" %}
+
+</div>
+{% endblock %}

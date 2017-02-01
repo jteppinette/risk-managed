@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block page %}
+<div id="guest-detail" class="page" data-url="/dashboard/guests/{{object.pk}}/" data-role="page" data-theme="b" data-title="{{object.first_name}} {{object.last_name}} | Risk Managed">
+
+  {% include "header.html" %}
+
+  <div role="main" class="ui-content">
+    <h1>{{object.first_name}} {{object.last_name}}</h1>
+    <div class="tight">
+      <h2 class="center">{{object.gender}}<br>Born on {{object.date_of_birth}}<br></h2>
+      <a href="{% url 'flags_new' object.pk %}" data-transition="slidedown" class="ui-btn ui-corner-all">Flag Guest</a>
+            
+      {% with flags=object.flag_set.all %}
+      {% if flags %}
+      <ul data-role="listview" data-inset="true">
+        <li data-role="list-divider" data-theme="b">Flags<span class="ui-li-count">{{flags|length}}</li>
+        {% for flag in flags %}
+        <li>
+          <a href="#flag-{{flag.pk}}" data-rel="popup" data-position-to="window" data-transition="slidedown">
+            <h2>{{flag.priority}} priority {% if flag.category == 'Description'%}charge: {{flag.other_description}}{% elif flag.category == 'Other'%}charge: {{flag.other_description}}{% else %}charge for {{flag.category}}{% endif %}</h2>
+            <p>Flagged by {% if flag.host %}{{flag.host}}{% else %}{{flag.administrator}}{% endif %}</p>
+          </a>
+        </li>
+        <div data-role="popup" id="flag-{{flag.pk}}" data-overlay-theme="b" data-theme="b" data-corners="false">
+          <ul data-role="listview" data-inset="true" style="min-width:210px;" data-theme="d">
+            <li data-role="divider" data-theme="b"><h2>{{flag.priority}} priority {% if flag.category == 'Description'%}charge: {{flag.other_description}}{% elif flag.category == 'Other'%}charge: {{flag.other_description}}{% else %}charge for {{flag.category}}{% endif %}</h2></li>
+            <li><a data-ajax="false" data-url="{% url 'guests_detail' object.pk %}" href="{% url 'flags_delete' flag.pk %}">Delete</a></li>
+            <li><a data-rel="back" href="#">Cancel</a></li>
+          </ul>
+        </div>
+        {% endfor%}
+      </ul>
+      {% endif %}
+      {% endwith %}
+            
+      {% if guestimages %}
+      <ul data-role="listview" data-filter="true" data-filter-placeholder="Search for specific event..." data-inset="true">
+        <li data-role="list-divider" data-theme="b">Events Attended<span class="ui-li-count">{{guestimages | length}}</li>
+        {% for guestimage in guestimages %}
+        <li>
+          <a href="#" class="clicktopop" data-style="image{{forloop.counter}}" data-rel="popup" data-position-to="window" data-transition="slidedown">
+            <img class="popphoto" src="{{guestimage.image_thumb.url}}" />
+            <h2>{{guestimage.event.name}}</h2>
+            <p>Arrived {{guestimage.date_time_taken}}</p>
+          </a>
+        </li>
+        <div data-role="popup" id="image{{forloop.counter}}" data-overlay-theme="b" data-theme="b" data-corners="false">
+          <a href="#" data-rel="back" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+          <img class="popphoto" data-style="{{guestimage.image.url}}" src="#" style="max-height:512px;" alt="{{object.first_name}} {{object.last_name}} at {{guestimage.event.name}}">
+        </div>
+        {% endfor%}
+      </ul>
+      {% endif %}
+
+    </div>
+  </div>
+
+  {% include "footer.html" %}
+
+  <script>
+  $('#guest-detail').on('pagehide', function (event) {
+      var page = jQuery(event.target);
+      page.remove();
+  });
+    
+  $('#guest-detail').on('pageinit', function () {
+      $('.clicktopop').click(function () {
+          var imageObject = $('#' + $(this).attr('data-style') + ' img');
+          var popupObject = $('#' + $(this).attr('data-style'));
+          var src = imageObject.attr('data-style');
+          if (imageObject.attr('src') != src) {
+              imageObject.on('load', function() {
+                  popupObject.popup('open');
+              }).attr('src', src);
+          } else {
+              popupObject.popup('open');
+          }
+      });
+  });
+  </script>
+
+</div>
+{% endblock %}

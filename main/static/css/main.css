@@ -1,0 +1,94 @@
+.ui-content {
+    background-color: #252525;
+}
+
+[data-role="list-divider"] {
+  color: #11aadd !important;
+}
+
+.page, .ui-page {
+  background-color: #1D1D1D !important;
+}
+
+* {
+    font-family: 'Open Sans', sans-serif !important;
+    font-weight: 300 !important;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.ui-content h1 {
+    text-align: center;
+    font-size: 4em;
+    margin: 0;
+    font-family: 'Roboto', sans-serif !important;
+    font-weight: 100 !important;
+    color: #11aadd;
+}
+
+.tight {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.center {
+    text-align: center;
+}
+
+.wrap-text {
+    white-space: normal;
+}
+
+.page {
+    background-color: #1d1d1d;
+}
+
+.home {
+    margin: -15px;
+    padding: 15px;
+}
+
+.admin {
+    color: rgb(100, 100, 100);
+    background-color: white;
+    margin: -15px;
+    padding: 15px;
+}
+
+.story {
+    margin: -15px;
+    padding: 15px;
+    color: white;
+}
+
+.contact {
+    color: rgb(100, 100, 100);
+    background-color: white;
+    margin: -15px;
+    padding: 15px;
+}
+
+.contact div.ui-btn, .contact input[type="submit"] {
+    font-size: 1.2em !important;
+}
+
+.home p, .admin p, .story p, .contact p, .contact a, .home a, .admin a {
+    font-size: 1.2em;
+}
+
+.features {
+    font-size: 1.7em !important;
+    color: #11aadd;
+}
+
+.rm-logo {
+    margin-top: 3px !important;
+    padding: 0px !important;
+}
+
+.footer {
+  font-size: .8em;
+}

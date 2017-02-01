@@ -1,0 +1,5 @@
+*.pyc
+rm
+staticfiles
+media
+email

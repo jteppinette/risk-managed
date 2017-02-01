@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block page %}
+<div data-role="page" data-theme="b" data-overlay-theme="b" data-dialog="true" data-title="Register as an Administrator | Risk Managed">
+  <div data-role="header" data-position="fixed">
+    <h1>Register as an Administrator</h1>
+  </div>
+  <div role="main" class="ui-content">
+
+    <form id="target" data-ajax="false" method="POST">
+      {% csrf_token %}
+      {{ form }}
+      <input class="submit" value="Register" type="submit"/>
+    </form>
+
+    <div class="ui-grid-a center ui-responsive">
+      <div class="ui-block-a">
+        <a style="ui-block-a" href="{% url 'terms' %}">Terms and Conditions</a>
+      </div>
+      <div class="ui-block-b">
+        <a href="{% url 'privacy' %}">Privacy Policy</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% load static %}
+
+<div data-role="header" data-position="fixed">
+  {% if user.is_authenticated %}
+
+  <a href="{% url 'logout' %}" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left" data-transition="flow">Logout</a>
+  <h1 class="rm-logo">
+    <img width=35 height=35 src="{% static "images/logo.png" %}">
+  </h1>
+  <a href="{% url 'dashboard' %}" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right" data-transition="flow">Dashboard</a>
+
+  {% else %}
+
+  <a href="{% url 'login' %}" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left" data-transition="slidedown">Login</a>
+  <h1 class="rm-logo">
+    <img width=35 height=35 src="{% static "images/logo.png" %}">
+  </h1>
+  <a href="{% url 'home' %}" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right" data-transition="slidedown">Home</a>
+
+  {% endif %}
+</div>

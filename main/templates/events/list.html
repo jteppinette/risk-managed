@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block page %}
+<div class="page" data-role="page" data-url="{% url 'events_list' %}" data-theme="b" data-title="Events | Risk Managed">
+
+  {% include "header.html" %}
+
+  <div role="main" class="ui-content">
+    <h1>Events</h1>
+    <div class="tight">
+
+      {% if user.host %}
+      <a href="{% url 'events_new' %}" data-transition="slidedown" class="ui-btn ui-corner-all">New Event</a>
+      {% endif %}
+
+      {% if events %}
+      <ul data-role="listview" data-filter="true" data-filter-placeholder="Search events..." data-inset="true">
+        <li data-role="list-divider" data-theme="b">Events<span class="ui-li-count">{{events | length}}</li>
+        {% for event in events %}
+        <li><a href="{% url 'events_detail' event.pk %}" data-transition="flow">{{event.name}}</a></li>
+        {% endfor%}
+      </ul>
+      {% endif %}
+
+    </div>
+  </div>
+
+  {% include "footer.html" %}
+
+</div>
+{% endblock %}
