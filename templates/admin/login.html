@@ -1,0 +1,22 @@
+{% extends "admin/login.html" %}
+
+{% load static %}
+
+{% block title %}Risk Managed | Admin Panel{% endblock %}
+
+{% block branding %}
+<h1 id="site-name" style="text-align: center"><a>Risk Managed<br><small>Admin Panel Login</small></a></h1>
+{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static "admin/css/login.css" %}" />
+{{ form.media }}
+<style>
+#branding {
+  width: 100%;
+}
+</style>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
