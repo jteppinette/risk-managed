@@ -1,6 +1,7 @@
 version: "3"
 volumes:
   db:
+  media:
 services:
   app:
     build: .
@@ -11,6 +12,8 @@ services:
       - DB_PORT=3306
     links:
       - db
+    volumes:
+      - media:/app/media
   db:
     image: mysql
     ports:
