@@ -28,7 +28,7 @@
 
 ## Usage
 
-## Environment Variables
+### Environment Variables
 
 Any variables marked as `insecure: true` should be overriden before being added to a production system.
 
@@ -40,7 +40,7 @@ Any variables marked as `insecure: true` should be overriden before being added 
 * DB_PORT         `default: 3306`
 * SESSION_SECRET  `defualt: secret, insecure: true`
 
-## Docker
+### Docker
 
 1. `docker build . -t app`
 
