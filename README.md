@@ -1,60 +1,71 @@
 # Risk Managed - *an event management system for Universities and Greek Life organizations*
 
-## Initialize Environment
+## Development
 
-1. Install `pip` and `virtualenv`
+### Required Software
 
-2. `git clone https://github.com/jteppinette/risk-managed.git`
+* [docker](https://docs.docker.com/)
+* [git](https://git-scm.com/)
+* [virtualenv](https://virtualenv.pypa.io/en/stable/)
 
-3. `virtualenv rm`
+### Getting Started
 
-4. `source rm/bin/activate`
+1. `git clone https://github.com/jteppinette/risk-managed.git`
 
-5. Run a mysql server. The default required settings can be found in `project/settings.py`. A compatible docker container would look like:
-    * `docker run -p 3306:3306 -d -e MYSQL_ROOT_PASSWORD=secret -e MYSQL_DATABASE=risk-managed -e MYSQL_USER=risk-managed -e MY_SQL_PASSWORD=secret --name mysql mysql`
+2. `virtualenv venv`
 
-6. `python manage.py createsuperuser` - _Create a user by following the Django *createsuperuser* command prompts. This superuser will be used to create companies and administor the system._
+3. `source venv/bin/activate`
 
-7. Visit `http://localhost:8000/admin`
+4. `pip install -r requirements.txt`
 
-8. Create new Universities and Organziations that can be used to register with.
+5. `docker-compose up -d db`
 
-9. Visit `http://localhost:8000/`
+6. `python manage.py migrate`
 
-10. Register a new host or administrator and login.
+7. `python manage.py createsuperuser`
 
-## Settings
+8. `python manage.py runserver`
 
-There are many settings and features that are configurable in the _/<root>/project/settings.py_ file.
-Some of which are also made available through environment variables.
-Read through this file for detailed documentation regarding each available setting, or
-view the online [Django v1.10 Documentation](https://docs.djangoproject.com/en/1.10/ref/settings/).
+## Usage
+
+## Environment Variables
+
+Any variables marked as `insecure: true` should be overriden before being added to a production system.
+
+* DEBUG           `default: True`
+* DB_NAME         `default: db`
+* DB_USER         `default: db`
+* DB_PASSWORD     `defualt: secret, insecure: true`
+* DB_HOST         `default: 0.0.0.0`
+* DB_PORT         `default: 3306`
+* SESSION_SECRET  `defualt: secret, insecure: true`
 
 ## Docker
 
-1. `docker build . -t amp`
+1. `docker build . -t app`
 
-2. `docker run -p 3306:3306 -d \
-      -e MYSQL_DATABASE=<db name> \
-      -e MYSQL_USER=<db user> \
-      -e MYSQL_PASSWORD=<db password> \
-      -e MYSQL_ROOT_PASSWORD=<db password> \
-      --name mysql mysql`
+2. `docker run \
+      -d
+      -e MYSQL_DATABASE=db
+      -e MYSQL_USER=db
+      -e MYSQL_PASSWORD=db-secret
+      -e MYSQL_RANDOM_ROOT_PASSWORD=yes
+      --name db
+      mysql`
 
-3. `docker run -it -p 8080:80 \
-      -e SECRET_KEY=<secret> \
-      -e DB_NAME=<db name> \
-      -e DB_USER=<db user> \
-      -e DB_PASSWORD=<db password> \
-      -e DB_HOST=<db host> \
-      -e DB_PORT=<db port> \
-      --rm --name risk-managed risk-managed`
+3. `docker run
+      -d
+      -p 8080:80
+      -e SESSION_SECRET=session-secret
+      -e DB_NAME=db
+      -e DB_USER=db
+      -e DB_PORT=3306
+      -e DB_PASSWORD=db-secret
+      -e DB_HOST=db
+      --link db
+      --name app
+      app`
 
-4. `docker exec -it amp python manage.py migrate`
+4. `docker exec -it app python manage.py migrate`
 
-5. `docker exec -it amp python manage.py createsuperuser`
-
-
-### Debug
-
-In a producton environment, be sure to set the *DEBUG* configuration item to _False_. This will disable the automatic wen interface error reporting and expensive debugging routines.
+5. `docker exec -it app python manage.py createsuperuser`

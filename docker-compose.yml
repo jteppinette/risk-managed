@@ -1,26 +1,24 @@
----
-
- version: '2'
- services:
-   app:
-     build: .
-     ports: 
-       - "8080:80"
-     environment:
-       - SECRET_KEY=23423423820jfjkajslk234085
-       - DB_NAME=risk-managed
-       - DB_USER=risk-managed
-       - DB_PASSWORD=secret
-       - DB_HOST=db
-       - DB_PORT=3306
-     links:
-       - db
-   db:
-     image: mysql
-     ports: 
-       - "3306:3306"
-     environment:
-       - MYSQL_DATABASE=risk-managed
-       - MYSQL_USER=risk-managed
-       - MYSQL_PASSWORD=secret
-       - MYSQL_ROOT_PASSWORD=secret
+version: "3"
+volumes:
+  db:
+services:
+  app:
+    build: .
+    ports:
+      - 8080:80
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+    links:
+      - db
+  db:
+    image: mysql
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_DATABASE=db
+      - MYSQL_USER=db
+      - MYSQL_PASSWORD=secret
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+    volumes:
+      - db:/var/lib/mysql

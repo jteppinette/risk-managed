@@ -1,16 +1,12 @@
 import os
 
-# ROOT
 ROOT = os.path.dirname(os.path.dirname(__file__))
 
-# DEBUG
 DEBUG = os.environ.get('DEBUG', True)
 
-# AUTH
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGIN_URL = 'login'
 
-# TEMPLATES
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -27,7 +23,6 @@ TEMPLATES = [
     },
 ]
 
-# INSTALLED APPS
 INSTALLED_APPS = [
     'main.apps.MainConfig',
     'django.contrib.admin',
@@ -38,7 +33,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles'
 ]
 
-# MIDDLEWARE
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -49,32 +43,27 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# URLS
 ROOT_URLCONF = 'project.urls'
 
-# STATIC ASSETS
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(ROOT, 'media')
 MEDIA_URL = '/media/'
 
-# MAIL
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = os.path.join(ROOT, 'email')
 
-# DATABASES
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('DB_NAME', 'risk-managed'),
-        'USER': os.environ.get('DB_USER', 'risk-managed'),
+        'NAME': os.environ.get('DB_NAME', 'db'),
+        'USER': os.environ.get('DB_USER', 'db'),
         'PASSWORD': os.environ.get('DB_PASSWORD', 'secret'),
         'HOST': os.environ.get('DB_HOST', '0.0.0.0'),
         'PORT': os.environ.get('DB_PORT', '3306')
     }
 }
 
-# AUTH PASSWORD VALIDATORS
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -90,16 +79,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# INTERNATIONALIZATION
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-# SECURITY
-SECRET_KEY = os.environ.get('SECRET_KEY', 'TEST_KEY')
+SECRET_KEY = os.environ.get('SESSION_SECRET', 'secret')
 
-# HEADER MANAGEMENT
 SECURE_PROXY_SSL_HEADER = ['HTTP_X_FORWARDED_PROTO', 'https']
 ALLOWED_HOSTS = ['*']
