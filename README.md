@@ -22,7 +22,7 @@
 
 6. `python manage.py migrate`
 
-7. `python manage.py createsuperuser`
+7. `python manage.py createfixturedata`
 
 8. `python manage.py runserver`
 
@@ -68,4 +68,4 @@ Any variables marked as `insecure: true` should be overriden before being added 
 
 4. `docker exec -it app python manage.py migrate`
 
-5. `docker exec -it app python manage.py createsuperuser`
+5. `docker exec -it app python manage.py createfixturedata`
