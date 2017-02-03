@@ -55,7 +55,7 @@ Any variables marked as `insecure: true` should be overriden before being added 
 
 3. `docker run
       -d
-      -p 8080:80
+      -p 8000:80
       -e SESSION_SECRET=session-secret
       -e DB_NAME=db
       -e DB_USER=db
