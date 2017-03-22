@@ -1,27 +1,30 @@
 version: "3"
+
 volumes:
   db:
   media:
+
 services:
+
   app:
     build: .
     ports:
       - 8000:80
     environment:
       - DB_HOST=db
-      - DB_PORT=3306
+      - DB_PORT=5432
     links:
       - db
     volumes:
       - media:/app/media
+
   db:
-    image: mysql
+    image: postgres:9.6
     ports:
-      - 3306:3306
+      - 5432:5432
     environment:
-      - MYSQL_DATABASE=db
-      - MYSQL_USER=db
-      - MYSQL_PASSWORD=secret
-      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+      - POSTGRES_DB=db
+      - POSTGRES_USER=db
+      - POSTGRES_PASSWORD=secret
     volumes:
-      - db:/var/lib/mysql
+      - db:/var/lib/postgresql/data

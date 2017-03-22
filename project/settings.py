@@ -55,12 +55,12 @@ EMAIL_FILE_PATH = os.path.join(ROOT, 'email')
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get('DB_NAME', 'db'),
         'USER': os.environ.get('DB_USER', 'db'),
         'PASSWORD': os.environ.get('DB_PASSWORD', 'secret'),
         'HOST': os.environ.get('DB_HOST', '0.0.0.0'),
-        'PORT': os.environ.get('DB_PORT', '3306')
+        'PORT': os.environ.get('DB_PORT', '5432')
     }
 }
 
