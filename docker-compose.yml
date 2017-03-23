@@ -2,7 +2,7 @@ version: "3"
 
 volumes:
   db:
-  media:
+  minio:
 
 services:
 
@@ -13,10 +13,12 @@ services:
     environment:
       - DB_HOST=db
       - DB_PORT=5432
+      - MINIO_HOST=minio
+      - MINIO_PORT=9000
+      - MINIO_BUCKET=risk-managed
     links:
       - db
-    volumes:
-      - media:/app/media
+      - minio
 
   db:
     image: postgres:9.6
@@ -28,3 +30,14 @@ services:
       - POSTGRES_PASSWORD=secret
     volumes:
       - db:/var/lib/postgresql/data
+
+  minio:
+    image: minio/minio
+    ports:
+      - "9000:9000"
+    environment:
+      MINIO_ACCESS_KEY: access-key
+      MINIO_SECRET_KEY: secret-key
+    command: server /data
+    volumes:
+      - minio:/data

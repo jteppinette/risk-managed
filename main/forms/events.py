@@ -1,6 +1,6 @@
 from django import forms
 
-from main.models import Event
+from main.models import Event, GuestImage
 
 
 class EventForm(forms.ModelForm):
@@ -10,4 +10,3 @@ class EventForm(forms.ModelForm):
         widgets = {
             'host': forms.HiddenInput()
         }
-

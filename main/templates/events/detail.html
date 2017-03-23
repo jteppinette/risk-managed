@@ -99,7 +99,7 @@
         {% for guestimage in guestimages %}
         <li>
           <a href="{% url 'guests_detail' guestimage.guest.pk %}" data-transition="flow">
-            <img src="{{guestimage.image_thumb.url}}" />
+            <img src="{{guestimage.image.url}}" />
             <h2>{{guestimage.guest.first_name}} {{guestimage.guest.last_name}}</h2>
             <p>{{guestimage.guest.gender}} born on {{guestimage.guest.date_of_birth}}</p>
           </a>

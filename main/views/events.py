@@ -64,15 +64,10 @@ def checkin(request, event):
 
                 if not guest.event.all().filter(pk=event.pk).exists():
                     guest.event.add(event)
-                    name, ext = os.path.splitext(request.FILES['photo'].name)
-                    relative_file_path = os.path.join('images', 'guests', str(guest.pk) + '-' + str(event.pk) + ext)
-                    absolute_file_path = os.path.join(settings.MEDIA_ROOT, relative_file_path)
-                    if not os.path.isdir(os.path.dirname(absolute_file_path)):
-                        os.makedirs(os.path.dirname(absolute_file_path))
-                    with open(absolute_file_path, 'wb+') as destination:
-                        for chunk in request.FILES['photo'].chunks():
-                            destination.write(chunk)
-                    guestimage = GuestImage(image=relative_file_path, image_thumb=relative_file_path, guest=guest, event=event, date_time_taken=datetime.datetime.utcnow().replace(tzinfo=utc))
+                    file = request.FILES['photo']
+                    name, ext = os.path.splitext(file.name)
+                    file.name = str(guest.pk) + '-' + str(event.pk) + str(ext)
+                    guestimage = GuestImage(image=file, guest=guest, event=event, date_time_taken=datetime.datetime.utcnow().replace(tzinfo=utc))
                     guestimage.save()
 
                 return redirect('events_detail', event.pk)

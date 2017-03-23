@@ -47,11 +47,17 @@ ROOT_URLCONF = 'project.urls'
 
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
-MEDIA_ROOT = os.path.join(ROOT, 'media')
-MEDIA_URL = '/media/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = os.path.join(ROOT, 'email')
+
+MINIO_ACCESSKEY = os.environ.get('MINIO_ACCESS_KEY', 'access-key')
+MINIO_BUCKET = os.environ.get('MINIO_BUCKET', 'test')
+MINIO_HOST = os.environ.get('MINIO_HOST', '0.0.0.0')
+MINIO_PORT = os.environ.get('MINIO_PORT', '9000')
+MINIO_SECRET = os.environ.get('MINIO_SECRET_KEY', 'secret-key')
+MINIO_SECURE = os.environ.get('MINIO_SECURE', False)
+MINIO_SERVER = MINIO_HOST+':'+MINIO_PORT
 
 DATABASES = {
     'default': {

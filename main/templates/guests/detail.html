@@ -42,7 +42,7 @@
         {% for guestimage in guestimages %}
         <li>
           <a href="#" class="clicktopop" data-style="image{{forloop.counter}}" data-rel="popup" data-position-to="window" data-transition="slidedown">
-            <img class="popphoto" src="{{guestimage.image_thumb.url}}" />
+            <img class="popphoto" src="{{guestimage.image.url}}" />
             <h2>{{guestimage.event.name}}</h2>
             <p>Arrived {{guestimage.date_time_taken}}</p>
           </a>

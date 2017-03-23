@@ -1,14 +1,18 @@
-from django.db import models
-from django.contrib.auth.models import User
 from PIL import ExifTags
 from PIL import Image
-from django.core.files.uploadedfile import InMemoryUploadedFile
 
-from project import settings
 from StringIO import StringIO
-import cStringIO
 
 from django.conf import settings
+from django.contrib.auth.models import User
+from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.db import models
+
+from django_minio.storage import MinioStorage
+
+from project import settings
+
+import cStringIO
 
 
 class University(models.Model):
@@ -179,42 +183,8 @@ class Flag(models.Model):
     other_description = models.CharField(max_length=30, blank=True, null=True, help_text='If you chose other, fill in description')
         
 
-def flat( *nums ):
-    return tuple( int(round(n)) for n in nums )
-     
-class Size(object):
-    def __init__(self, pair):
-        self.width = float(pair[0])
-        self.height = float(pair[1])
-     
-    @property
-    def aspect_ratio(self):
-        return self.width / self.height
-         
-    @property
-    def size(self):
-        return flat(self.width, self.height)
-     
-def cropped_thumbnail(img, size):
-    original = Size(img.size)
-    target = Size(size)
-     
-    if target.aspect_ratio > original.aspect_ratio:
-        scale_factor = target.width / original.width
-        crop_size = Size( (original.width, target.height / scale_factor) )
-        top_cut_line = 0
-        img = img.crop( flat(0, top_cut_line, crop_size.width, top_cut_line + crop_size.height) )
-    elif target.aspect_ratio < original.aspect_ratio:
-        scale_factor = target.height / original.height
-        crop_size = Size( (target.width/scale_factor, original.height) )
-        side_cut_line = (original.width - crop_size.width) / 2
-        img = img.crop( flat(side_cut_line, 0, side_cut_line + crop_size.width, crop_size.height) )
-        
-    return img.resize(target.size, Image.ANTIALIAS)
-        
 class GuestImage(models.Model):
-    image = models.ImageField(upload_to='images/guests')
-    image_thumb = models.ImageField(upload_to='images/guests')
+    image = models.ImageField(upload_to='images/guests', storage=MinioStorage())
     guest = models.ForeignKey(Guest)
     event = models.ForeignKey(Event)
     date_time_taken = models.DateTimeField()
@@ -224,17 +194,3 @@ class GuestImage(models.Model):
         
     def event_name(self):
         return self.event.name
-        
-    def save(self, *args, **kwargs):
-        super(GuestImage, self).save(*args, **kwargs)
-        
-        img = Image.open(StringIO(self.image_thumb.read()))
-        img = cropped_thumbnail(img, (80, 80))
-        
-        img_io = StringIO()
-        img.save(img_io, format='JPEG')
-  
-        image_path = str(self.guest.pk) + '-' + str(self.event.pk)
-        image_file = InMemoryUploadedFile(img_io, None, '%s-thumb.jpg' % (str(image_path)), 'image/jpeg', img_io.len, None)
-        self.image_thumb = image_file
-        super(GuestImage, self).save(*args, **kwargs)
