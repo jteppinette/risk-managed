@@ -40,8 +40,8 @@ Any variables marked as `insecure: true` should be overriden before being added 
 * DB_PORT         `default: 5432`
 * MINIO_ACCESSKEY `default: access-key`
 * MINIO_BUCKET    `default: test`
-* MINIO_HOST      `default: 0.0.0.0`
-* MINIO_PORT      `default: 9000`
+* MINIO_SERVER    `default: 0.0.0.0:9000`
+* MINIO_SECURE    `default: false`
 * MINIO_SECRET    `default: 'secret-key, insecure: true`
 * SESSION_SECRET  `defualt: secret, insecure: true`
 
@@ -75,8 +75,7 @@ Any variables marked as `insecure: true` should be overriden before being added 
       -e DB_PORT=5432
       -e DB_PASSWORD=db-secret
       -e DB_HOST=db
-      -e MINIO_HOST=minio
-      -e MINIO_PORT=9000
+      -e MINIO_SERVER=minio:9000
       -e MINIO_BUCKET=amp
       --link db
       --link minio

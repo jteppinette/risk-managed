@@ -13,8 +13,7 @@ services:
     environment:
       - DB_HOST=db
       - DB_PORT=5432
-      - MINIO_HOST=minio
-      - MINIO_PORT=9000
+      - MINIO_SERVER=minio:9000
       - MINIO_BUCKET=risk-managed
     links:
       - db

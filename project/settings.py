@@ -53,11 +53,9 @@ EMAIL_FILE_PATH = os.path.join(ROOT, 'email')
 
 MINIO_ACCESSKEY = os.environ.get('MINIO_ACCESS_KEY', 'access-key')
 MINIO_BUCKET = os.environ.get('MINIO_BUCKET', 'test')
-MINIO_HOST = os.environ.get('MINIO_HOST', '0.0.0.0')
-MINIO_PORT = os.environ.get('MINIO_PORT', '9000')
 MINIO_SECRET = os.environ.get('MINIO_SECRET_KEY', 'secret-key')
 MINIO_SECURE = os.environ.get('MINIO_SECURE', False)
-MINIO_SERVER = MINIO_HOST+':'+MINIO_PORT
+MINIO_SERVER = os.environ.get('MINIO_SERVER', '0.0.0.0:9000')
 
 DATABASES = {
     'default': {
