@@ -48,8 +48,13 @@ ROOT_URLCONF = 'project.urls'
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
-EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = os.path.join(ROOT, 'email')
+EMAIL_FROM = os.environ.get('MAIL_FROM', 'notifications@risk-managed.localhost')
+EMAIL_HOST = os.environ.get('MAIL_HOST', '0.0.0.0')
+EMAIL_PORT = os.environ.get('MAIL_PORT', 1025)
+EMAIL_HOST_PASSWORD = os.environ.get('MAIL_PASSWORD', '')
+EMAIL_HOST_USER = os.environ.get('MAIL_USER', '')
+EMAIL_USE_TLS = os.environ.get('MAIL_USE_TLS', False)
+EMAIL_USE_SSL = os.environ.get('MAIL_USE_SSL', False)
 
 MINIO_ACCESSKEY = os.environ.get('MINIO_ACCESS_KEY', 'access-key')
 MINIO_BUCKET = os.environ.get('MINIO_BUCKET', 'test')

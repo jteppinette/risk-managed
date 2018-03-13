@@ -15,9 +15,12 @@ services:
       - DB_PORT=5432
       - MINIO_SERVER=minio:9000
       - MINIO_BUCKET=risk-managed
+      - MAIL_HOST=mail
+      - MAIL_PORT=1025
     links:
       - db
       - minio
+      - mail
 
   db:
     image: postgres:9.6
@@ -40,3 +43,9 @@ services:
     command: server /data
     volumes:
       - minio:/data
+
+  mail:
+    image: schickling/mailcatcher
+    ports:
+      - "1025:1025"
+      - "1080:1080"
