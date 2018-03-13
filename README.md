@@ -11,15 +11,15 @@
 ### Getting Started
 
 ```
-git clone https://github.com/jteppinette/risk-managed.git && cd risk-managed
-virtualenv venv
-source venv/bin/activate
-pip install -r requirements.txt
-docker-compose up -d db minio mail
-python manage.py makemigrations
-python manage.py migrate
-python manage.py createfixturedata
-python manage.py runserver
+$ git clone https://github.com/jteppinette/risk-managed.git && cd risk-managed
+$ virtualenv venv
+$ source venv/bin/activate
+$ pip install -r requirements.txt
+$ docker-compose up -d db minio mail
+$ python manage.py makemigrations
+$ python manage.py migrate
+$ python manage.py createfixturedata
+$ python manage.py runserver
 ```
 
 ## Usage
