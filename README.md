@@ -38,5 +38,5 @@ Any variables marked as `insecure: true` should be overriden before being added 
 * MINIO_BUCKET    `default: test`
 * MINIO_SERVER    `default: 0.0.0.0:9000`
 * MINIO_SECURE    `default: false`
-* MINIO_SECRET    `default: 'secret-key, insecure: true`
+* MINIO_SECRET    `default: secret-key, insecure: true`
 * SESSION_SECRET  `defualt: secret, insecure: true`
