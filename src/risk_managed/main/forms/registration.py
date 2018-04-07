@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
-from main.models import University, Organization, Host, Administrator
+from risk_managed.main.models import University, Organization, Host, Administrator
 
 
 class RegisterHostForm(UserCreationForm):

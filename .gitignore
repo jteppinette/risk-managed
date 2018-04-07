@@ -1,6 +1,6 @@
-*.pyc
+src/risk_managed/**/*.pyc
 venv
-static
-email
-**/migrations/*
-!**/migrations/__init__.py
+./static
+src/risk_managed.egg-info
+src/risk_managed/**/migrations/*
+!src/risk_managed/**/migrations/__init__.py

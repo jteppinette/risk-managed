@@ -13,13 +13,12 @@
 ```
 $ git clone https://github.com/jteppinette/risk-managed.git && cd risk-managed
 $ virtualenv venv
-$ source venv/bin/activate
-$ pip install -r requirements.txt
+$ venv/bin/pip install -e .
 $ docker-compose up -d db minio mail
-$ python manage.py makemigrations
-$ python manage.py migrate
-$ python manage.py createfixturedata
-$ python manage.py runserver
+$ venv/bin/risk_managed makemigrations
+$ venv/bin/risk_managed migrate
+$ venv/bin/risk_managed createfixturedata -f
+$ venv/bin/risk_managed runserver
 ```
 
 ## Usage

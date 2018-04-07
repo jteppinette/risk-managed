@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
-from main.models import Host
+from risk_managed.main.models import Host
 
 @login_required
 def view(request):

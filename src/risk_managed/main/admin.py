@@ -1,5 +1,5 @@
 from django.contrib import admin
-from main.models import Host, Event, Guest, GuestImage, Flag, Organization, University, Administrator
+from risk_managed.main.models import Host, Event, Guest, GuestImage, Flag, Organization, University, Administrator
 
 class OrganizationAdmin(admin.ModelAdmin):
     pass

@@ -3,14 +3,11 @@ from PIL import Image
 
 from StringIO import StringIO
 
-from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
 
-from django_minio.storage import MinioStorage
-
-from project import settings
+from risk_managed.django_minio.storage import MinioStorage
 
 import cStringIO
 

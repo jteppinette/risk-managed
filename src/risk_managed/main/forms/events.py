@@ -1,6 +1,6 @@
 from django import forms
 
-from main.models import Event, GuestImage
+from risk_managed.main.models import Event, GuestImage
 
 
 class EventForm(forms.ModelForm):

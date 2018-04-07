@@ -1,7 +1,7 @@
 import os
 import ast
 
-ROOT = os.path.dirname(os.path.dirname(__file__))
+ROOT = os.path.dirname(__file__)
 
 DEBUG = ast.literal_eval(os.environ.get('DEBUG', 'True'))
 
@@ -25,14 +25,14 @@ TEMPLATES = [
 ]
 
 INSTALLED_APPS = [
-    'main',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_gunicorn'
+    'risk_managed.main',
+    'risk_managed.django_gunicorn'
 ]
 
 MIDDLEWARE = [
@@ -45,7 +45,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'project.urls'
+ROOT_URLCONF = 'risk_managed.urls'
 
 EMAIL_FROM = os.environ.get('MAIL_FROM', 'notifications@risk-managed.localhost')
 EMAIL_HOST = os.environ.get('MAIL_HOST', '0.0.0.0')
@@ -61,7 +61,7 @@ MINIO_SECRET = os.environ.get('MINIO_SECRET_KEY', 'secret-key')
 MINIO_SECURE = os.environ.get('MINIO_SECURE', False)
 MINIO_SERVER = os.environ.get('MINIO_SERVER', '0.0.0.0:9000')
 
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage' if DEBUG else 'django_minio.storage.MinioStorage'
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage' if DEBUG else 'risk_managed.django_minio.storage.MinioStorage'
 STATIC_ROOT = 'static'
 STATIC_URL = '/static/'
 

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
-from main.forms import EmailChangeForm
+from risk_managed.main.forms import EmailChangeForm
 
 @login_required
 def manage(request):

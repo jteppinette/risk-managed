@@ -1,6 +1,6 @@
 from django import forms
 
-from main.models import Flag
+from risk_managed.main.models import Flag
 
 
 class FlagForm(forms.ModelForm):

@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 
-from main.models import Host, Organization, University, Administrator
-from main.forms import RegisterHostForm, RegisterAdministratorForm
+from risk_managed.main.models import Host, Organization, University, Administrator
+from risk_managed.main.forms import RegisterHostForm, RegisterAdministratorForm
 
 def host(request):
     if request.method == 'POST':

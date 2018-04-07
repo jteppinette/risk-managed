@@ -1,12 +1,11 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
+from django.contrib.auth import get_user_model
 
 import random
 import datetime
 
-from django.contrib.auth import get_user_model
-
-from main.models import University, Organization, Host, Administrator, Event
+from risk_managed.main.models import University, Organization, Host, Administrator, Event
 
 
 class Command(BaseCommand):

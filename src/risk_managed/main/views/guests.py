@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 
-from main.models import Event, GuestImage, Guest
+from risk_managed.main.models import Event, GuestImage, Guest
 
 
 class List(LoginRequiredMixin, ListView):

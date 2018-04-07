@@ -1,8 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
-from main.models import Flag, Guest
-from main.forms import FlagForm
+from risk_managed.main.models import Flag, Guest
+from risk_managed.main.forms import FlagForm
 
 def list(request):
     host_flags = Flag.objects.filter(host__in=request.user.administrator.host_set.all())

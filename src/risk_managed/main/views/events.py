@@ -6,8 +6,8 @@ from django.conf import settings
 import datetime
 import os
 
-from main.models import Event, GuestImage, Guest
-from main.forms import EventForm, GuestForm
+from risk_managed.main.models import Event, GuestImage, Guest
+from risk_managed.main.forms import EventForm, GuestForm
 
 @login_required
 def list(request):

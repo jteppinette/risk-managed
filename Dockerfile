@@ -10,5 +10,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
+RUN pip install --no-cache-dir .
 
-CMD python manage.py rungunicorn -b 0.0.0.0:80
+ENTRYPOINT ["risk_managed"]
+CMD ["rungunicorn", "-b", "0.0.0.0:80"]
