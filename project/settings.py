@@ -1,8 +1,9 @@
 import os
+import ast
 
 ROOT = os.path.dirname(os.path.dirname(__file__))
 
-DEBUG = os.environ.get('DEBUG', True)
+DEBUG = ast.literal_eval(os.environ.get('DEBUG', 'True'))
 
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGIN_URL = 'login'
