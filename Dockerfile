@@ -1,13 +1,14 @@
-FROM tiangolo/uwsgi-nginx
+FROM python:2.7
 
 ENV DEBUG False
 
-COPY nginx.conf /etc/nginx/conf.d/
-COPY uwsgi.conf /etc/uwsgi/uwsgi.ini
+EXPOSE 80
 
-COPY requirements.txt /app/
-RUN pip install --no-cache-dir -r /app/requirements.txt
+WORKDIR /usr/src/app
 
-COPY . /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-CMD /usr/bin/supervisord
+COPY . .
+
+CMD python manage.py rungunicorn -b 0.0.0.0:80
