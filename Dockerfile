@@ -10,6 +10,4 @@ RUN pip install --no-cache-dir -r /app/requirements.txt
 
 COPY . /app
 
-RUN python manage.py collectstatic --noinput
-
 CMD /usr/bin/supervisord

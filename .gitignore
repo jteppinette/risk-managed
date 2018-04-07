@@ -1,6 +1,6 @@
 *.pyc
 venv
-staticfiles
+static
 email
 **/migrations/*
 !**/migrations/__init__.py

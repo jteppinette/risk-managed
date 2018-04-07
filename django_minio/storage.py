@@ -60,9 +60,13 @@ class MinioStorage(Storage):
         if self.connection:
             if not self.connection.bucket_exists(self.bucket):
                 self.connection.make_bucket(self.bucket)
+            if hasattr(content.file, 'size'):
+                size = content.file.size
+            else:
+                size = os.fstat(content.file.fileno()).st_size
             try:
                 self.connection.put_object(
-                    self.bucket, name, content, content.file.size, content_type=content_type
+                    self.bucket, name, content, size, content_type=content_type
                 )
             except InvalidXMLError:
                 pass
@@ -79,6 +83,17 @@ class MinioStorage(Storage):
                     return "image_not_found"  # TODO: Find a better way of returning errors
             except MaxRetryError:
                 return "image_not_found"
+        return "could_not_establish_connection"
+
+    def delete(self, name):
+        if self.connection:
+            try:
+                if self.connection.bucket_exists(self.bucket):
+                    return self.connection.remove_object(self.bucket, name)
+                else:
+                    return "image_not_found"
+            except ResponseError as err:
+                return err
         return "could_not_establish_connection"
 
     def exists(self, name):

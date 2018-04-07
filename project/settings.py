@@ -46,9 +46,6 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'project.urls'
 
-STATIC_ROOT = 'staticfiles'
-STATIC_URL = '/static/'
-
 EMAIL_FROM = os.environ.get('MAIL_FROM', 'notifications@risk-managed.localhost')
 EMAIL_HOST = os.environ.get('MAIL_HOST', '0.0.0.0')
 EMAIL_PORT = os.environ.get('MAIL_PORT', 1025)
@@ -62,6 +59,10 @@ MINIO_BUCKET = os.environ.get('MINIO_BUCKET', 'test')
 MINIO_SECRET = os.environ.get('MINIO_SECRET_KEY', 'secret-key')
 MINIO_SECURE = os.environ.get('MINIO_SECURE', False)
 MINIO_SERVER = os.environ.get('MINIO_SERVER', '0.0.0.0:9000')
+
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage' if DEBUG else 'django_minio.storage.MinioStorage'
+STATIC_ROOT = 'static'
+STATIC_URL = '/static/'
 
 DATABASES = {
     'default': {
