@@ -26,20 +26,18 @@ $ python manage.py runserver
 
 ### Environment Variables
 
-Any variables marked as `insecure: true` should be overriden before being added to a production system.
-
 * DEBUG           `default: True`
 * DB_NAME         `default: db`
 * DB_USER         `default: db`
-* DB_PASSWORD     `defualt: secret, insecure: true`
+* DB_PASSWORD     `defualt: secret`
 * DB_HOST         `default: 0.0.0.0`
 * DB_PORT         `default: 5432`
 * MINIO_ACCESSKEY `default: access-key`
 * MINIO_BUCKET    `default: test`
 * MINIO_SERVER    `default: 0.0.0.0:9000`
 * MINIO_SECURE    `default: false`
-* MINIO_SECRET    `default: secret-key, insecure: true`
-* SESSION_SECRET  `defualt: secret, insecure: true`
+* MINIO_SECRET    `default: secret-key`
+* SESSION_SECRET  `defualt: secret`
 * MAIL_FROM       `default: notifications@risk-managed.localhost`
 * MAIL_HOST       `default: 0.0.0.0`
 * MAIL_PORT       `default: 1025`
