@@ -1,16 +1,18 @@
-FROM python:2.7
-
-ENV DEBUG False
-
-EXPOSE 80
-
+FROM python:2.7 as builder
 WORKDIR /usr/src/app
-
-COPY requirements/app.txt .
-RUN pip install --no-cache-dir -r app.txt
-
+RUN apt-get update -y && \
+    apt-get install pandoc -y
+COPY ./requirements ./requirements
+RUN pip install --no-cache-dir -r requirements/app.txt && \
+    pip install --no-cache-dir -r requirements/packaging.txt
 COPY . .
-RUN pip install --no-cache-dir .
+RUN make build
 
-ENTRYPOINT ["risk_managed"]
+FROM python:2.7-slim
+RUN apt-get update -y && \
+    apt-get install libpq-dev libjpeg-dev libtiff5-dev -y
+COPY --from=builder /usr/src/app/target/risk_managed.pex /usr/local/bin/
+ENV DEBUG False
+EXPOSE 80
+ENTRYPOINT ["risk_managed.pex"]
 CMD ["rungunicorn", "-b", "0.0.0.0:80"]
