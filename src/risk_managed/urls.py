@@ -1,11 +1,9 @@
 from django.conf.urls import include, url
 
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.contrib.staticfiles.urls import urlpatterns
 
 from risk_managed.main import urls
 
-urlpatterns = [
+urlpatterns += [
     url('^', include(urls)),
 ]
-
-urlpatterns += staticfiles_urlpatterns()

@@ -1,7 +1,7 @@
 src/risk_managed/**/*.pyc
 venv
 target
-./static
+/static
 src/risk_managed.egg-info
 src/risk_managed/**/migrations/*
 !src/risk_managed/**/migrations/__init__.py
