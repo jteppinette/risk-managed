@@ -12,10 +12,10 @@ APPLICATION_ARCHIVE_FILE = $(NAME).tgz
 build:
 	virtualenv $(VENV_DIR)
 
-	$(VENV_BIN_DIR)/pip install pex
+	$(VENV_BIN_DIR)/pip install -r requirements/packaging.txt
 	$(VENV_BIN_DIR)/pip wheel --wheel-dir=$(TARGET_DIR) --no-deps .
 	$(VENV_BIN_DIR)/pex --output-file=$(TARGET_DIR)/$(APPLICATION_BINARY) \
-			    --requirement=requirements.txt \
+			    --requirement=requirements/app.txt \
 			    --find-links=$(TARGET_DIR) \
 			    --disable-cache \
 			    --console-script=$(NAME) \

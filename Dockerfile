@@ -6,8 +6,8 @@ EXPOSE 80
 
 WORKDIR /usr/src/app
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY requirements/app.txt .
+RUN pip install --no-cache-dir -r app.txt
 
 COPY . .
 RUN pip install --no-cache-dir .
