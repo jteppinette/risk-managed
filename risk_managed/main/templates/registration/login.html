@@ -1,0 +1,17 @@
+{% extends 'main/base.html' %}
+
+{% block page %}
+<div id="login" data-url="{% url 'login' %}" data-role="page" data-theme="b" data-overlay-theme="b" data-dialog="true" data-title="Login | Risk Managed">
+  <div data-role="header" data-position="fixed">
+      <h1>Login</h1>
+  </div>
+  <div role="main" class="ui-content">
+    <form method="post" action="{% url 'login' %}">
+      {% csrf_token %}
+      {{ form }}
+      <input type="submit" value="login" />
+      <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+  </div>
+</div>
+{% endblock %}

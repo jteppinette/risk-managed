@@ -1,0 +1,16 @@
+{% extends 'main/base.html' %}
+
+{% block page %}
+<div data-url="{% url 'account_email_change' %}" data-role="page" data-theme="b" data-overlay-theme="b" data-dialog="true" data-title="Change Email | Risk Managed">
+  <div data-role="header" data-position="fixed">
+      <h1>Change Email</h1>
+  </div>
+  <div role="main" class="ui-content">
+    <form action="{% url 'account_email_change' %}" method="POST">
+      {% csrf_token %}
+      {{ form }}
+      <input class="submit" value="Change Email" type="submit"/>
+    </form>
+  </div>
+</div>
+{% endblock %}

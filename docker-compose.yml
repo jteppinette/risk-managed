@@ -2,7 +2,7 @@ version: "3"
 
 volumes:
   db:
-  minio:
+  storage:
 
 services:
 
@@ -11,19 +11,19 @@ services:
     ports:
       - 8000:80
     environment:
-      - DB_HOST=db
-      - DB_PORT=5432
-      - MINIO_SERVER=minio:9000
-      - MINIO_BUCKET=risk-managed
-      - MAIL_HOST=mail
-      - MAIL_PORT=1025
+      - DEVELOPMENT=True
+      - DATABASE_URL=postgres://db:secret@db:5432/db
+      - SMTP_SERVER=mail
+      - SMTP_PORT=1025
+      - STORAGE_URL=http://storage:9000
+      - STORAGE_BUCKET=storage
     links:
       - db
-      - minio
+      - storage
       - mail
 
   db:
-    image: postgres:9.6
+    image: postgres:10
     ports:
       - 5432:5432
     environment:
@@ -33,16 +33,16 @@ services:
     volumes:
       - db:/var/lib/postgresql/data
 
-  minio:
+  storage:
     image: minio/minio
     ports:
       - "9000:9000"
     environment:
-      MINIO_ACCESS_KEY: access-key
-      MINIO_SECRET_KEY: secret-key
+      MINIO_ACCESS_KEY: access-key-id
+      MINIO_SECRET_KEY: secret-access-key
     command: server /data
     volumes:
-      - minio:/data
+      - storage:/data
 
   mail:
     image: schickling/mailcatcher

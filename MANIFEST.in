@@ -1,3 +1,0 @@
-graft src/risk_managed/templates
-graft src/risk_managed/main/templates
-graft src/risk_managed/main/static

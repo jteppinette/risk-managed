@@ -1,18 +1,18 @@
-FROM python:2.7 as builder
-WORKDIR /usr/src/app
-RUN apt-get update -y && \
-    apt-get install pandoc -y
-COPY ./requirements ./requirements
-RUN pip install --no-cache-dir -r requirements/app.txt && \
-    pip install --no-cache-dir -r requirements/packaging.txt
-COPY . .
-RUN make build
+FROM python:3.7.1-slim
 
-FROM python:2.7-slim
+WORKDIR /usr/src/app
+
 RUN apt-get update -y && \
     apt-get install libpq-dev libjpeg-dev libtiff5-dev -y
-COPY --from=builder /usr/src/app/target/risk_managed.pex /usr/local/bin/
-ENV DEBUG False
+
+COPY ./requirements.txt ./requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+ENV DEVELOPMENT False
+
 EXPOSE 80
-ENTRYPOINT ["risk_managed.pex"]
-CMD ["rungunicorn", "-b", "0.0.0.0:80"]
+
+RUN python manage.py collectstatic --noinput
+CMD ["gunicorn", "risk_managed.wsgi", "-b", "0.0.0.0:80", "--log-file", "-"]
