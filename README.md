@@ -6,7 +6,6 @@
 
 * [docker](https://docs.docker.com/)
 * [git](https://git-scm.com/)
-* [gdal](https://trac.osgeo.org/gdal/wiki/BuildingOnMac)
 * [OpenSSL](https://www.openssl.org)
 
 ### Getting Started
