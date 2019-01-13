@@ -27,6 +27,7 @@ $ python manage.py runserver
 
 ```
 DEVELOPMENT                default: True
+LOG_LEVEL                  default: INFO
 DATABASE_URL               default: postgres://db:secret@0.0.0.0:5432/db
 SECRET_KEY                 default: secret
 SMTP_DOMAIN                default: risk-managed.localhost

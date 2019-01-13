@@ -1,5 +1,8 @@
 import ast
+import io
+import logging
 import os
+import traceback
 from urllib import parse
 
 import dj_database_url
@@ -112,3 +115,64 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "secret")
 
 SECURE_PROXY_SSL_HEADER = ["HTTP_X_FORWARDED_PROTO", "https"]
 ALLOWED_HOSTS = ["*"]
+
+
+class RequestFormatter(logging.Formatter):
+    def formatException(self, exc_info):
+        """
+        Return a formatted exception in the format "{exception_type}: {exception_value}". This
+        function body is derived from the following parent class' function:
+
+        https://github.com/python/cpython/blob/995d9b92979768125ced4da3a56f755bcdf80f6e/Lib/logging/__init__.py#L623
+        """
+        f = io.StringIO()
+        traceback.print_exception(exc_info[0], exc_info[1], None, limit=0, file=f)
+        result = f.getvalue()
+        f.close()
+        if result[-1:] == "\n":
+            result = result[:-1]
+        return result
+
+
+LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO")
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}},
+    "formatters": {
+        "django.server": {
+            "()": "django.utils.log.ServerFormatter",
+            "format": "[{server_time}] {message}",
+            "style": "{",
+        },
+        "django.request": {"()": RequestFormatter},
+    },
+    "handlers": {
+        "console": {"level": "INFO", "class": "logging.StreamHandler"},
+        "console_request": {
+            "level": "INFO",
+            "class": "logging.StreamHandler",
+            "formatter": "django.request",
+        },
+        "django.server": {
+            "level": "INFO",
+            "class": "logging.StreamHandler",
+            "formatter": "django.server",
+        },
+        "mail_admins": {
+            "level": "ERROR",
+            "filters": ["require_debug_false"],
+            "class": "django.utils.log.AdminEmailHandler",
+        },
+    },
+    "loggers": {
+        "django": {"handlers": ["mail_admins"], "level": "INFO"},
+        "django.request": {
+            "handlers": ["console_request", "mail_admins"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "django.server": {"handlers": ["django.server"], "level": "INFO", "propagate": False},
+    },
+    "root": {"handlers": ["console"], "level": LOG_LEVEL},
+}
