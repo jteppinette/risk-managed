@@ -48,8 +48,8 @@ STORAGE_URL                default: http://0.0.0.0:9000
 ```
 $ heroku create
 $ heroku addons:create mailgun:starter
+$ heroku addons:create bucketeer:hobbyist
 $ heroku config:set SECRET_KEY=`openssl rand -base64 50`
 $ heroku config:set DEVELOPMENT=False
-$ heroku config:set STORAGE_URL=https://bucket.s3.amazonaws.com
 $ git push heroku master
 ```
