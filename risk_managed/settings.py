@@ -71,7 +71,7 @@ MANAGERS = [("Managers", "mangers@{}".format(EMAIL_DOMAIN))]
 
 DEFAULT_FILE_STORAGE = "minio_storage.storage.MinioMediaStorage"
 STORAGE_URL = parse.urlparse(os.environ.get("STORAGE_URL", "http://0.0.0.0:9000"))
-MINIO_STORAGE_ACCESS_KEY = os.environ.get("STORAGE_ACESS_KEY_ID", "access-key-id")
+MINIO_STORAGE_ACCESS_KEY = os.environ.get("STORAGE_ACCESS_KEY_ID", "access-key-id")
 MINIO_STORAGE_SECRET_KEY = os.environ.get("STORAGE_SECRET_ACCESS_KEY", "secret-access-key")
 MINIO_STORAGE_MEDIA_BUCKET_NAME = os.environ.get("STORAGE_BUCKET", "storage")
 MINIO_STORAGE_ENDPOINT = STORAGE_URL.netloc
