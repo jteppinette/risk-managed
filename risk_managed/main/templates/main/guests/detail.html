@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block page %}
-<div id="guest-detail" class="page" data-url="/dashboard/guests/{{object.pk}}/" data-role="page" data-theme="b" data-title="{{object.first_name}} {{object.last_name}} | Risk Managed">
+<div id="guest-detail" class="page" data-url="{% url 'guests_detail' object.pk %}" data-role="page" data-theme="b" data-title="{{object.first_name}} {{object.last_name}} | Risk Managed">
 
   {% include "main/header.html" %}
 

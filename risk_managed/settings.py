@@ -18,7 +18,7 @@ LOGIN_URL = "/login"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": ["templates"],
+        "DIRS": [os.path.join(ROOT, "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -34,7 +34,6 @@ TEMPLATES = [
 
 INSTALLED_APPS = [
     "whitenoise.runserver_nostatic",
-    "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
