@@ -12,8 +12,10 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 DEVELOPMENT = ast.literal_eval(os.environ.get("DEVELOPMENT", "True"))
 DEBUG = DEVELOPMENT
 
-LOGIN_REDIRECT_URL = "/dashboard"
-LOGIN_URL = "/login"
+LOGIN_REDIRECT_URL = "dashboard"
+LOGOUT_REDIRECT_URL = ""
+LOGIN_URL = "dashboard"
+LOGOUT_URL = "logout"
 
 TEMPLATES = [
     {
@@ -34,13 +36,14 @@ TEMPLATES = [
 
 INSTALLED_APPS = [
     "whitenoise.runserver_nostatic",
+    "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "minio_storage",
-    "risk_managed.main",
+    "risk_managed",
 ]
 
 MIDDLEWARE = [
@@ -55,6 +58,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "risk_managed.urls"
+APPEND_SLASH = False
 
 EMAIL_DOMAIN = os.environ.get("SMTP_DOMAIN", "risk-managed.localhost")
 EMAIL_HOST = os.environ.get("SMTP_SERVER", "0.0.0.0")
@@ -84,6 +88,7 @@ MINIO_STORAGE_MEDIA_USE_PRESIGNED = True
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 STATIC_ROOT = "static"
 STATIC_URL = "/static/"
+STATICFILES_DIRS = [os.path.join(ROOT, "static")]
 
 DATABASES = {
     "default": dj_database_url.config(

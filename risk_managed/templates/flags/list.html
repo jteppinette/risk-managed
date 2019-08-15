@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block page %}
+<div data-url="{% url 'flags_list' %}" class="page" data-role="page" data-theme="b" data-title="Flags | Risk Managed">
+
+  {% include "header.html" %}
+
+  <div role="main" class="ui-content">
+    <h1>Flags</h1>
+    <div class="tight">
+
+      {% if host_flags %}
+      <ul data-role="listview" data-filter="true" data-autodividers="true" data-filter-placeholder="Search hosts flags..." data-inset="true">
+        {% for flag in host_flags %}
+        <li host="{{flag.host.organization}}">
+          <a href="#flag-{{flag.pk}}" data-rel="popup" data-position-to="window" data-transition="slidedown">
+            <h2>{{flag.guest}}</h2>
+            <p>{{flag.priority}} priority {% if flag.category == 'Description'%}charge: {{flag.other_description}}{% elif flag.category == 'Other'%}charge: {{flag.other_description}}{% else %}charge for {{flag.category}}{% endif %}</p>
+          </a>
+        </li>
+        <div data-role="popup" id="flag-{{flag.pk}}" data-overlay-theme="b" data-theme="b" data-corners="false">
+          <ul data-role="listview" data-inset="true" style="min-width:210px;" data-theme="d">
+            <li data-role="divider" data-theme="b"><h2>{{flag.priority}} priority {% if flag.category == 'Description'%}charge: {{flag.other_description}}{% elif flag.category == 'Other'%}charge: {{flag.other_description}}{% else %}charge for {{flag.category}}{% endif %}</h2></li>
+            <li><a data-ajax="false" data-url="{% url 'flags_list' %}" href="{% url 'flags_delete' flag.pk %}">Delete</a></li>
+            <li><a data-ajax="false" href="{% url 'guests_detail' flag.guest.pk %}">View Guest</a></li>
+            <li><a data-rel="back" href="#">Cancel</a></li>
+          </ul>
+        </div>
+        {% endfor%}
+      </ul>
+      {% endif %}
+      
+      {% if admin_flags %}
+      <ul data-role="listview" data-filter="true" data-filter-placeholder="Search administrator flags..." data-inset="true">
+        {% for flag in admin_flags %}
+        <li>
+          <a href="#flag-{{flag.pk}}" data-rel="popup" data-position-to="window" data-transition="slidedown">
+            <h2>{{flag.guest}}</h2>
+            <p>{{flag.priority}} priority {% if flag.category == 'Description'%}charge: {{flag.other_description}}{% elif flag.category == 'Other'%}charge: {{flag.other_description}}{% else %}charge for {{flag.category}}{% endif %}</p>
+          </a>
+        </li>
+        <div data-role="popup" id="flag-{{flag.pk}}" data-overlay-theme="b" data-theme="b" data-corners="false">
+          <ul data-role="listview" data-inset="true" style="min-width:210px;" data-theme="d">
+            <li data-role="divider" data-theme="b"><h2>{{flag.priority}} priority {% if flag.category == 'Description'%}charge: {{flag.other_description}}{% elif flag.category == 'Other'%}charge: {{flag.other_description}}{% else %}charge for {{flag.category}}{% endif %}</h2></li>
+            <li><a data-ajax="false" data-url="{% url 'flags_list' %}" href="{% url 'flags_delete' flag.pk %}">Delete</a></li>
+            <li><a data-ajax="false" href="{% url 'guests_detail' flag.guest.pk %}">View Guest</a></li>
+            <li><a data-rel="back" href="#">Cancel</a></li>
+          </ul>
+        </div>
+        {% endfor%}
+      </ul>
+      {% endif %}
+
+      </div>
+  </div>
+
+  {% include "footer.html" %}
+
+</div>
+{% endblock %}
