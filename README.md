@@ -21,6 +21,17 @@ $ python manage.py migrate
 $ python manage.py runserver
 ```
 
+### Fixture Data
+
+The included fixture data management command will create an environment that
+is ready for active development. After running this command, you will be able
+to login with the credentials `ksspsu:ksspsu`.
+
+```
+$ source venv/bin/activate
+$ python manage.py createfixturedata -f
+```
+
 ## Usage
 
 ### Environment Variables
