@@ -88,7 +88,6 @@ MINIO_STORAGE_MEDIA_USE_PRESIGNED = True
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 STATIC_ROOT = "static"
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [os.path.join(ROOT, "static")]
 
 DATABASES = {
     "default": dj_database_url.config(
